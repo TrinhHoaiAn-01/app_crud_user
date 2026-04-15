@@ -10,14 +10,14 @@
     <main class="app-shell">
         <section class="content">
             <nav class="top-nav">
-                <a href="{{ url('/') }}">Home</a> | <a href="{{ url('/list') }}">Danh sach user</a> | <strong>Cap nhat</strong>
+                <a href="{{ route('home') }}">Home</a> | <a href="{{ route('users.list') }}">Danh sach user</a> | <strong>Cap nhat</strong>
             </nav>
 
             <div class="page-body">
                 <section class="page-panel">
                     <h1 class="page-title">Man hinh cap nhat</h1>
 
-                    <form method="POST" action="{{ url('/update') }}">
+                    <form method="POST" action="{{ route('users.update') }}">
                         @csrf
                         <input type="hidden" name="id" value="{{ old('id', $user->id ?? request('id')) }}">
 
@@ -36,7 +36,7 @@
                         </div>
 
                         <div class="form-actions">
-                            <a class="button-secondary" href="{{ url('/list') }}">Quay lai danh sach</a>
+                            <a class="button-secondary" href="{{ route('users.list') }}">Quay lai danh sach</a>
                             <button class="button" type="submit">Cap nhat</button>
                         </div>
 

@@ -10,7 +10,7 @@
     <main class="app-shell">
         <section class="content">
             <nav class="top-nav">
-                <a href="{{ url('/') }}">Home</a> | <strong><a href="{{ url('/logout') }}">Dang xuat</a></strong>
+                <a href="{{ route('home') }}">Home</a> | <strong><a href="{{ route('logout') }}">Dang xuat</a></strong>
             </nav>
 
             <div class="page-body">
@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="form-actions">
-                        <a class="button" href="{{ url('/update?id=' . $user->id) }}">Chinh sua</a>
+                        <a class="button" href="{{ route('users.edit', ['id' => $user->id]) }}">Chinh sua</a>
                     </div>
                 </section>
             </div>

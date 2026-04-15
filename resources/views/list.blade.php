@@ -10,7 +10,7 @@
     <main class="app-shell">
         <section class="content">
             <nav class="top-nav">
-                <a href="{{ url('/') }}">Home</a> | <strong><a href="{{ url('/logout') }}">Dang xuat</a></strong>
+                <a href="{{ route('home') }}">Home</a> | <strong><a href="{{ route('logout') }}">Dang xuat</a></strong>
             </nav>
 
             <div class="page-body">
@@ -38,9 +38,9 @@
                                         <td>{{ $user->username }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>
-                                            <a href="{{ url('/update?id=' . $user->id) }}">Edit</a> |
-                                            <a href="{{ url('/view?id=' . $user->id) }}">View</a> |
-                                            <a href="{{ url('/delete?id=' . $user->id) }}" onclick="return confirm('Ban chac chan muon xoa user nay?');">Delete</a>
+                                            <a href="{{ route('users.edit', ['id' => $user->id]) }}">Edit</a> |
+                                            <a href="{{ route('users.view', ['id' => $user->id]) }}">View</a> |
+                                            <a href="{{ route('users.delete', ['id' => $user->id]) }}" onclick="return confirm('Ban chac chan muon xoa user nay?');">Delete</a>
                                         </td>
                                     </tr>
                                 @empty

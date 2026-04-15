@@ -21,7 +21,7 @@ class CrudUserController extends Controller
     public function login(): View|RedirectResponse
     {
         if (Auth::check()) {
-            return redirect('/list');
+            return redirect()->route('users.list');
         }
 
         return view('login');
@@ -30,7 +30,7 @@ class CrudUserController extends Controller
     public function list(): View|RedirectResponse
     {
         if (!Auth::check()) {
-            return redirect('/login')->with('status', 'Vui long dang nhap de tiep tuc.');
+            return redirect()->route('login')->with('status', 'Vui long dang nhap de tiep tuc.');
         }
 
         return view('list', [
@@ -46,14 +46,14 @@ class CrudUserController extends Controller
     public function view(Request $request): View|RedirectResponse
     {
         if (!Auth::check()) {
-            return redirect('/login')->with('status', 'Vui long dang nhap de tiep tuc.');
+            return redirect()->route('login')->with('status', 'Vui long dang nhap de tiep tuc.');
         }
 
         $userId = (int) $request->query('id');
         $user = User::find($userId);
 
         if (!$user) {
-            return redirect('/list')->with('status', 'Khong tim thay user.');
+            return redirect()->route('users.list')->with('status', 'Khong tim thay user.');
         }
 
         return view('view', [
@@ -64,14 +64,14 @@ class CrudUserController extends Controller
     public function edit(Request $request): View|RedirectResponse
     {
         if (!Auth::check()) {
-            return redirect('/login')->with('status', 'Vui long dang nhap de tiep tuc.');
+            return redirect()->route('login')->with('status', 'Vui long dang nhap de tiep tuc.');
         }
 
         $userId = (int) $request->query('id');
         $user = User::find($userId);
 
         if (!$user) {
-            return redirect('/list')->with('status', 'Khong tim thay user.');
+            return redirect()->route('users.list')->with('status', 'Khong tim thay user.');
         }
 
         return view('update', [
@@ -89,7 +89,7 @@ class CrudUserController extends Controller
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
 
-            return redirect('/list');
+            return redirect()->route('users.list');
         }
 
         return back()
@@ -114,20 +114,20 @@ class CrudUserController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect('/login')->with('status', 'Dang ky thanh cong. Vui long dang nhap.');
+        return redirect()->route('login')->with('status', 'Dang ky thanh cong. Vui long dang nhap.');
     }
 
     public function storeUpdate(Request $request): RedirectResponse
     {
         if (!Auth::check()) {
-            return redirect('/login')->with('status', 'Vui long dang nhap de tiep tuc.');
+            return redirect()->route('login')->with('status', 'Vui long dang nhap de tiep tuc.');
         }
 
         $userId = (int) $request->input('id');
         $user = User::find($userId);
 
         if (!$user) {
-            return redirect('/list')->with('status', 'Khong tim thay user.');
+            return redirect()->route('users.list')->with('status', 'Khong tim thay user.');
         }
 
         $validated = $request->validate([
@@ -143,7 +143,7 @@ class CrudUserController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect('/list')->with('status', 'Cap nhat user thanh cong.');
+        return redirect()->route('users.list')->with('status', 'Cap nhat user thanh cong.');
     }
 
     public function logout(Request $request): RedirectResponse
@@ -153,13 +153,13 @@ class CrudUserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login')->with('status', 'Dang xuat thanh cong.');
+        return redirect()->route('login')->with('status', 'Dang xuat thanh cong.');
     }
 
     public function delete(Request $request): RedirectResponse
     {
         if (!Auth::check()) {
-            return redirect('/login')->with('status', 'Vui long dang nhap de tiep tuc.');
+            return redirect()->route('login')->with('status', 'Vui long dang nhap de tiep tuc.');
         }
 
         $userId = (int) $request->query('id');
@@ -168,6 +168,6 @@ class CrudUserController extends Controller
             User::whereKey($userId)->delete();
         }
 
-        return redirect('/list')->with('status', 'Xoa user thanh cong.');
+        return redirect()->route('users.list')->with('status', 'Xoa user thanh cong.');
     }
 }

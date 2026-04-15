@@ -11,9 +11,9 @@
         <section class="content">
             <nav class="top-nav">
                 @auth
-                    <strong>Home</strong> | <a href="{{ url('/list') }}">Danh sach user</a> | <a href="{{ url('/logout') }}">Dang xuat</a>
+                    <strong>Home</strong> | <a href="{{ route('users.list') }}">Danh sach user</a> | <a href="{{ route('logout') }}">Dang xuat</a>
                 @else
-                    <strong>Home</strong> | <a href="{{ url('/login') }}">Dang nhap</a> | <a href="{{ url('/register') }}">Dang ky</a>
+                    <strong>Home</strong> | <a href="{{ route('login') }}">Dang nhap</a> | <a href="{{ route('register') }}">Dang ky</a>
                 @endauth
             </nav>
 
@@ -22,11 +22,11 @@
                     <h1 class="page-title">Bai tap EXE01</h1>
 
                     <div class="quick-links">
-                        <a class="quick-link" href="{{ url('/login') }}">Mo trang dang nhap</a>
-                        <a class="quick-link" href="{{ url('/register') }}">Mo trang dang ky</a>
-                        <a class="quick-link" href="{{ $sampleUser ? url('/update?id=' . $sampleUser->id) : url('/list') }}">Mo trang cap nhat</a>
-                        <a class="quick-link" href="{{ url('/list') }}">Mo danh sach user</a>
-                        <a class="quick-link" href="{{ $sampleUser ? url('/view?id=' . $sampleUser->id) : url('/list') }}">Mo trang chi tiet</a>
+                        <a class="quick-link" href="{{ route('login') }}">Mo trang dang nhap</a>
+                        <a class="quick-link" href="{{ route('register') }}">Mo trang dang ky</a>
+                        <a class="quick-link" href="{{ $sampleUser ? route('users.edit', ['id' => $sampleUser->id]) : route('users.list') }}">Mo trang cap nhat</a>
+                        <a class="quick-link" href="{{ route('users.list') }}">Mo danh sach user</a>
+                        <a class="quick-link" href="{{ $sampleUser ? route('users.view', ['id' => $sampleUser->id]) : route('users.list') }}">Mo trang chi tiet</a>
                     </div>
                 </section>
             </div>

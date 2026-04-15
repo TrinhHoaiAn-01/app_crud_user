@@ -10,14 +10,14 @@
     <main class="app-shell">
         <section class="content">
             <nav class="top-nav">
-                <a href="{{ url('/') }}">Home</a> | <strong>Dang nhap</strong> | <a href="{{ url('/register') }}">Dang ky</a>
+                <a href="{{ route('home') }}">Home</a> | <strong>Dang nhap</strong> | <a href="{{ route('register') }}">Dang ky</a>
             </nav>
 
             <div class="page-body">
                 <section class="page-panel">
                     <h1 class="page-title">Man hinh dang nhap</h1>
 
-                    <form method="POST" action="{{ url('/login') }}">
+                    <form method="POST" action="{{ route('login.store') }}">
                         @csrf
                         <div class="form-grid">
                             <label for="login-username">Username</label>
@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="form-actions">
-                            <a class="button-secondary" href="{{ url('/register') }}">Tao tai khoan</a>
+                            <a class="button-secondary" href="{{ route('register') }}">Tao tai khoan</a>
                             <button class="button" type="submit">Dang nhap</button>
                         </div>
 
