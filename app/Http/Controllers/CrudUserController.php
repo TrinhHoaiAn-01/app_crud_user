@@ -11,8 +11,19 @@ use Illuminate\View\View;
 
 class CrudUserController extends Controller
 {
-    public function login(): View
+    public function home(): View
     {
+        return view('welcome', [
+            'sampleUser' => User::orderBy('id')->first(),
+        ]);
+    }
+
+    public function login(): View|RedirectResponse
+    {
+        if (Auth::check()) {
+            return redirect('/list');
+        }
+
         return view('login');
     }
 

@@ -3,9 +3,7 @@
 use App\Http\Controllers\CrudUserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [CrudUserController::class, 'home'])->name('home');
 
 Route::get('/login', [CrudUserController::class, 'login'])->name('login');
 Route::post('/login', [CrudUserController::class, 'storeLogin'])->name('login.store');
