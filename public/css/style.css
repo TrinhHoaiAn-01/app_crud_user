@@ -451,3 +451,14 @@ a:hover {
         padding: 8px 6px;
     }
 }
+
+.page-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.page-btn:hover {
+    text-decoration: none;
+}
