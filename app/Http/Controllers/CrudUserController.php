@@ -16,6 +16,17 @@ class CrudUserController extends Controller
         return view('login');
     }
 
+    public function list(): View|RedirectResponse
+    {
+        if (!Auth::check()) {
+            return redirect('/login')->with('status', 'Vui long dang nhap de tiep tuc.');
+        }
+
+        return view('list', [
+            'users' => User::orderBy('id')->paginate(10),
+        ]);
+    }
+
     public function register(): View
     {
         return view('register');
@@ -67,5 +78,20 @@ class CrudUserController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/login')->with('status', 'Dang xuat thanh cong.');
+    }
+
+    public function delete(Request $request): RedirectResponse
+    {
+        if (!Auth::check()) {
+            return redirect('/login')->with('status', 'Vui long dang nhap de tiep tuc.');
+        }
+
+        $userId = (int) $request->query('id');
+
+        if ($userId > 0) {
+            User::whereKey($userId)->delete();
+        }
+
+        return redirect('/list')->with('status', 'Xoa user thanh cong.');
     }
 }
