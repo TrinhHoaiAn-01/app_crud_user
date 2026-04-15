@@ -32,6 +32,24 @@ class CrudUserController extends Controller
         return view('register');
     }
 
+    public function view(Request $request): View|RedirectResponse
+    {
+        if (!Auth::check()) {
+            return redirect('/login')->with('status', 'Vui long dang nhap de tiep tuc.');
+        }
+
+        $userId = (int) $request->query('id');
+        $user = User::find($userId);
+
+        if (!$user) {
+            return redirect('/list')->with('status', 'Khong tim thay user.');
+        }
+
+        return view('view', [
+            'user' => $user,
+        ]);
+    }
+
     public function storeLogin(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
