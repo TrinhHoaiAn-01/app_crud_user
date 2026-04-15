@@ -50,6 +50,24 @@ class CrudUserController extends Controller
         ]);
     }
 
+    public function edit(Request $request): View|RedirectResponse
+    {
+        if (!Auth::check()) {
+            return redirect('/login')->with('status', 'Vui long dang nhap de tiep tuc.');
+        }
+
+        $userId = (int) $request->query('id');
+        $user = User::find($userId);
+
+        if (!$user) {
+            return redirect('/list')->with('status', 'Khong tim thay user.');
+        }
+
+        return view('update', [
+            'user' => $user,
+        ]);
+    }
+
     public function storeLogin(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
@@ -86,6 +104,35 @@ class CrudUserController extends Controller
         ]);
 
         return redirect('/login')->with('status', 'Dang ky thanh cong. Vui long dang nhap.');
+    }
+
+    public function storeUpdate(Request $request): RedirectResponse
+    {
+        if (!Auth::check()) {
+            return redirect('/login')->with('status', 'Vui long dang nhap de tiep tuc.');
+        }
+
+        $userId = (int) $request->input('id');
+        $user = User::find($userId);
+
+        if (!$user) {
+            return redirect('/list')->with('status', 'Khong tim thay user.');
+        }
+
+        $validated = $request->validate([
+            'username' => ['required', 'string', 'max:255', 'unique:users,username,' . $userId],
+            'password' => ['required', 'string', 'min:6'],
+            'confirm_password' => ['required', 'same:password'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $userId],
+        ]);
+
+        $user->update([
+            'username' => $validated['username'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        return redirect('/list')->with('status', 'Cap nhat user thanh cong.');
     }
 
     public function logout(Request $request): RedirectResponse
