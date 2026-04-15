@@ -10,7 +10,7 @@
     <main class="app-shell">
         <section class="content">
             <nav class="top-nav">
-                <a href="{{ route('home') }}">Home</a> | <strong><a href="{{ route('logout') }}">Dang xuat</a></strong>
+                <a href="{{ route('home') }}">Home</a> | <a href="{{ route('users.list') }}">Danh sach user</a> | <strong>Chi tiet</strong> | <a href="{{ route('logout') }}">Dang xuat</a>
             </nav>
 
             <div class="page-body">
